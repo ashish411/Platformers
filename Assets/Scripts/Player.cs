@@ -11,7 +11,7 @@ public class Player : MonoBehaviour
     [SerializeField]
     private float _gravity = 1f;
     [SerializeField]
-    private float _jumpHeight = 15.0f;
+    private float _jumpHeight = 30.0f;
     private float yVelocity;
     private bool _canDoubleJump = true;
     [SerializeField]
