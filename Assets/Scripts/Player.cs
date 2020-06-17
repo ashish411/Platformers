@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class Player : MonoBehaviour
 {
@@ -11,11 +12,12 @@ public class Player : MonoBehaviour
     [SerializeField]
     private float _gravity = 1f;
     [SerializeField]
-    private float _jumpHeight = 30.0f;
+    private float _jumpHeight = 15.0f;
     private float yVelocity;
     private bool _canDoubleJump = true;
     [SerializeField]
     private int _score =0;
+    private int _lives =3;
     private UiManager _uiManager;
 
     // Start is called before the first frame update
@@ -23,6 +25,8 @@ public class Player : MonoBehaviour
     {
         _controller = GetComponent<CharacterController>();
         _uiManager = GameObject.Find("Canvas").GetComponent<UiManager>();
+
+        _uiManager.UpdateLives(_lives);
     }
 
     // Update is called once per frame
@@ -49,7 +53,6 @@ public class Player : MonoBehaviour
             }
             yVelocity -= _gravity;
         }
-
         velocity.y = yVelocity;
 
 
@@ -60,5 +63,17 @@ public class Player : MonoBehaviour
     {
         _score++;
         _uiManager.UpdateScore(_score);
+    }
+
+    public void RemoveLive()
+    {
+
+        _lives--;
+        _uiManager.UpdateLives(_lives);
+
+        if (_lives <1)
+        {
+            SceneManager.LoadScene(0);
+        }
     }
 }
